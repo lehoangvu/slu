@@ -1,19 +1,11 @@
 import express from 'express'
 import {Site, Pageview} from './../../model'
+import Authen from './../../lib/authen'
 
-
-// const s = new Site({
-// 	domain: 'tiki.com.vn',
-// 	name: 'Tiki',
-// 	status: 'active'
-// })
-
-// s.save(function (err) {
-//   if (err) return handleError(err);
-//   // saved!
-// })
 
 var router = express.Router();
+
+router.use(Authen)
 
 router.get('/', function (req, res) {
 	let sf = Site.find({domain: 'https://tiki.vn'})
@@ -24,17 +16,6 @@ router.get('/', function (req, res) {
 				console.log(ps)
 				res.json(ps[0].site)
 			})
-	// 		let p = new Pageview({
-	// 			site: site
-	// 		})
-	// 		p.save(function (err) {
-	// 		  	if (err) {
-	// 		  		res.json(err)
-	// 		  	} else {
-	// 			  	// saved!
-	// 				res.json(p);
-	// 		  	}
-	// 		})
 
 		}
 

@@ -1,6 +1,7 @@
 import express from 'express'
 import db from './lib/database'
 import site from './app/site'
+import customer from './app/customer'
 import bodyParser from 'body-parser'
 
 const app = express()
@@ -21,6 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/site', site)
 
+app.use('/customer', customer)
+
 app.get('/', (req, res) => res.send('Hello World!'))
+
+app.get('*', function(req, res){
+  res.send('Vào hẻm rồi bạn!', 404);
+});
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))

@@ -1,11 +1,25 @@
-const express = require('express')
+import express from 'express'
+import db from './lib/database'
+import site from './app/site'
+import bodyParser from 'body-parser'
+
 const app = express()
 
-const db = require('./lib/database')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const log = require('./app/log')
+// app.use((req, res, next) => {
+//     next();
+// });
 
-app.use('/log', log)
+// app.use((req, res, next) => {
+//     if (/\/xml$/.test(req.headers['content-type'])) {
+//         req.body = parser.toJson(req.body.toString(), { object: true });
+//     }
+//     next();
+// });
+
+app.use('/site', site)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 

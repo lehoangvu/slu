@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 mongoose
 .connect('mongodb://slu:1234qwerasdfzxcv@ds125388.mlab.com:25388/sludb')
@@ -8,4 +8,4 @@ mongoose
   console.log('connect fail', err)
 })
 
-module.exports = mongoose
+export default mongoose

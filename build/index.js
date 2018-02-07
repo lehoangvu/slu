@@ -8,20 +8,49 @@ var _database = require('./lib/database');
 
 var _database2 = _interopRequireDefault(_database);
 
-var _log = require('./app/log');
+var _site = require('./app/site');
 
-var _log2 = _interopRequireDefault(_log);
+var _site2 = _interopRequireDefault(_site);
+
+var _customer = require('./app/customer');
+
+var _customer2 = _interopRequireDefault(_customer);
+
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 
-app.use('/log', _log2.default);
+app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({ extended: true }));
+
+// app.use((req, res, next) => {
+//     next();
+// });
+
+// app.use((req, res, next) => {
+//     if (/\/xml$/.test(req.headers['content-type'])) {
+//         req.body = parser.toJson(req.body.toString(), { object: true });
+//     }
+//     next();
+// });
+app.use(require('express-status-monitor')());
+
+app.use('/site', _site2.default);
+
+app.use('/customer', _customer2.default);
 
 app.get('/', function (req, res) {
   return res.send('Hello World!');
 });
 
-app.listen(3000, function () {
+app.get('*', function (req, res) {
+  res.send('Vào hẻm rồi bạn!', 404);
+});
+
+app.listen(process.env.PORT || 3000, function () {
   return console.log('Example app listening on port 3000!');
 });

@@ -13,7 +13,6 @@ router.get('/', function (req, res) {
 		if(docs.length > 0) {
 			const site = docs[0]
 			Pageview.find().populate('site').exec((err, ps) => {
-				console.log(ps)
 				res.json(ps[0].site)
 			})
 

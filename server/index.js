@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     }
 //     next();
 // });
+app.use(require('express-status-monitor')())
 
 app.use('/site', site)
 
@@ -30,4 +31,4 @@ app.get('*', function(req, res){
   res.send('Vào hẻm rồi bạn!', 404);
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(process.env.PORT || 3000, () => console.log('Example app listening on port 3000!'))

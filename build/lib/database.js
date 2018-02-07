@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _mongoose2.default.connect('mongodb://slu:1234qwerasdfzxcv@ds125388.mlab.com:25388/sludb').then(function () {
   console.log('connect ok');
-}, function (err) { 
+}, function (err) {
   console.log('connect fail', err);
 });
 

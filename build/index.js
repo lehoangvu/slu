@@ -24,6 +24,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+app.use('/loaderio-433fe63d3bdd2fb994196816c7a39bab.txt', _express2.default.static('./loaderio-433fe63d3bdd2fb994196816c7a39bab.txt'));
+
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 

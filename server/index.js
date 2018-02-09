@@ -6,6 +6,8 @@ import bodyParser from 'body-parser'
 
 const app = express()
 
+app.use('/loaderio-433fe63d3bdd2fb994196816c7a39bab.txt', express.static('./loaderio-433fe63d3bdd2fb994196816c7a39bab.txt'))
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 

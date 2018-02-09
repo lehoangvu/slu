@@ -29,6 +29,10 @@ app.use('/customer', customer)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
+// app.use((err, req, res, next) => {
+  // res.status(500).send('Lỗi!')
+// })
+
 app.get('*', function(req, res){
   res.send('Vào hẻm rồi bạn!', 404);
 });

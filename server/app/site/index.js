@@ -2,30 +2,29 @@ import express from 'express'
 import {Site, Pageview} from './../../model'
 import Authen from './../../lib/authen'
 
-var create_queue = [];
-var queueTimeout = false;
-var queueProcessing = false;
+const DEFAULT_LIMIT = 20
+
 var router = express.Router();
 
 router.use(Authen)
 
 router.get('/', function (req, res) {
-	let sf = Site.find({domain: 'domain-domain'})
-	sf.exec((err, docs) => {
-		if(docs.length > 0) {
-			const site = docs[0]
-			// Pageview.find().populate('site').exec((err, ps) => {
-			// 	res.json(ps[0].site)
-			// })
-				res.json(site)
-
+	let paging = {page: parseInt(req.query.page || 1), limit: parseInt(req.query.limit || DEFAULT_LIMIT)}
+	let query = {domain: {
+		"$regex": req.query.q,
+		"$options": "i"
+	}}
+	let sf = Site.paginate(query, paging, (err, results) => {
+		if(err) {
+			res.status(400).json({
+				error: 'Có lỗi sảy ra',
+				err
+			})
+		} else {
+			res.json(results)
 		}
 
 	})
-})
-
-router.get('/queue', function (req, res) {
-	res.json({length: create_queue.length})
 })
 
 router.put('/', function (req, res) {
@@ -50,18 +49,5 @@ router.put('/', function (req, res) {
 
 })
 
-var queueProcess = function() {
-	if(queueProcessing) return;
-	queueProcessing = true;
-	const s = create_queue.splice(0, 1)
-	if(s.length > 0) {
-		s[0].save(function (err) {
-		  	queueProcess()
-		})
-		queueProcessing = false;
-	} else {
-		queueProcessing = false;
-	}
-}
 
 export default router;

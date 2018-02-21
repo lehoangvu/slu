@@ -1,4 +1,6 @@
 import { create } from './base'
+// import paginate from 'mongoose-paginate';
+import paginate from '../lib/paginate-plugin'
 
 export default create('Site', {
 	domain: {
@@ -13,4 +15,4 @@ export default create('Site', {
 		type: String,
 		default: 'inactive'
 	},
-})
+}, [paginate])

@@ -34,7 +34,11 @@ app.get('/', (req, res) => res.send('Hello World!'))
 // })
 
 app.get('*', function(req, res){
-  res.send('Vào hẻm rồi bạn!', 404);
+  res.status(500).send('Vào hẻm rồi bạn!');
 });
 
-app.listen(process.env.PORT || 3000, () => console.log('Example app listening on port 3000!'))
+const app_port = process.env.PORT || 3000
+
+app.listen(app_port, () => {
+	console.log('http://localhost:' + app_port)
+})
